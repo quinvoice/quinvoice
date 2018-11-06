@@ -1,0 +1,32 @@
+{
+  "name": "quinvoice",
+  "version": "1.0.0",
+  "description": "Quinvoice - the Queen of invoices",
+  "repository": "https://github.com/Qcumbeer/quinvoice",
+  "main": "src/index.js",
+  "bin": {
+    "quinvoice": "./bin/quinvoice.js"
+  },
+  "scripts": {
+    "lint": "eslint src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Szymon Piecuch <szymek.piecuch@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "currency-formatter": "^1.5.3",
+    "getopts": "^2.2.2",
+    "i18n": "^0.8.3",
+    "in-words": "^0.2.2",
+    "inquirer": "^6.2.0",
+    "inquirer-datepicker-prompt": "^0.4.2",
+    "moment": "^2.22.2",
+    "mustache": "^3.0.0",
+    "wkhtmltopdf-installer": "^0.3.2",
+    "word-table": "^1.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^5.8.0"
+  }
+}

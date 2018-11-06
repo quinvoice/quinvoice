@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="pl" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Faktura</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        .row-no-padding > [class*="col-"] {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        .row-table {
+            display: table;
+            width: 100%;
+        }
+
+        .row-table > [class*="col-"] {
+            display: table-cell;
+            vertical-align: middle;
+            height: 100%;
+            float: none;
+        }
+
+        .row-divider {
+            height: 1px;
+            background: #eee;
+            margin: 30px 0;
+        }
+
+        .invoice-person .invoice-person-label {
+            font-size: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .space-bottom {
+            margin-bottom: 40px;
+        }
+
+        .lead-no-space {
+            margin-bottom: 0;
+        }
+
+        body {
+            width: 1024px;
+        }
+
+        .invoice-header {
+            margin-bottom: 40px;
+        }
+
+        .invoice-row {
+            margin-bottom: 50px;
+        }
+
+        .invoice-row.row-divider {
+            margin: 100px 0;
+        }
+
+        .invoice-header {
+            margin-bottom: 100px;
+        }
+
+        .invoice-header-date {
+            margin-top: 5px;
+            font-size: 2rem;
+        }
+
+        .invoice-company {
+            font-size: 1.9rem;
+        }
+
+        .invoice-footer {
+            margin-top: 100px;
+        }
+
+        .invoice-person-name {
+            font-size: 1.9rem;
+        }
+
+        .table-centered td:not(.text-right),
+        .table-centered th:not(.text-right) {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row invoice-row invoice-header">
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h1>Faktura VAT nr {{ invoice.number }}</h1>
+                        </div>
+                        <div class="col-sm-12 invoice-header-date">Data wystawienia: {{ #date }}{{ invoice.date }}{{ /date }}</div>
+                        <div class="col-sm-12 invoice-header-date">Data sprzedaży / wykonania usługi: {{ #date}}{{ invoice.date }}{{ /date }}</div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-12 text-right">
+                            <img class="invoice-qr-code" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row invoice-row">
+                <div class="col-sm-6 invoice-company">
+                    <p class="lead">Sprzedawca</p>
+                    <div><strong>{{ invoice.seller.name }}</strong></div>
+                    <div>
+                        {{ invoice.seller.street }}
+                        <br />
+                        {{ invoice.seller.postCode }} {{ invoice.seller.city }}
+                    </div>
+                    <div>NIP: {{ invoice.seller.nip }}</div>
+                </div>
+                <div class="col-sm-6 invoice-company">
+                    <p class="lead">Nabywca</p>
+                    <div><strong>{{ invoice.buyer.name }}</strong></div>
+                    <div>
+                        {{ invoice.buyer.street }}
+                        <br />
+                        {{ invoice.buyer.postCode }} {{ invoice.buyer.city }}
+                    </div>
+                    <div>NIP: {{ invoice.buyer.nip }}</div>
+                </div>
+            </div>
+
+            <div class="row row-divider invoice-row"></div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>lp.</th>
+                            <th>Nazwa towaru / usługi</th>
+                            <th>Ilość</th>
+                            <th>Jm</th>
+                            <th>Cena netto</th>
+                            <th>VAT</th>
+                            <th>Kwota netto</th>
+                            <th>Kwota vat</th>
+                            <th>Kwota brutto</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{ #invoice.elements }}
+                        <tr>
+                            <td>{{ index }}.</td>
+                            <td>{{ name }}</td>
+                            <td>{{ amount }}</td>
+                            <td>szt</td>
+                            <td>{{ #number }}{{ value }}{{ /number }}</td>
+                            <td>{{ vatPercent }}%</td>
+                            <td>{{ #number }}{{ netto }}{{ /number }}</td>
+                            <td>{{ #number }}{{ vat }}{{ /number }}</td>
+                            <td>{{ #number }}{{ brutto }}{{ /number }}</td>
+                        </tr>
+                        {{ /invoice.elements }}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row row-table invoice-row">
+                <div class="col-sm-6">
+                    <p><strong>Sposób zapłaty:</strong> {{ #translate }}{{ invoice.paymentType }}{{ /translate }}</p>
+                    <p><strong>Termin zapłaty:</strong> {{ invoice.paymentPeriod }} dni</p>
+                </div>
+                <div class="col-sm-6 table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Stawka VAT</th>
+                            <th>Netto</th>
+                            <th>VAT</th>
+                            <th>Brutto</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{ #vatSummary }}
+                        <tr>
+                            <td>{{ vatPercent }}%</td>
+                            <td>{{ #money }}{{ netto }}{{ /money }}</td>
+                            <td>{{ #money }}{{ vat }}{{ /money }}</td>
+                            <td>{{ #money }}{{ brutto }}{{ /money }}</td>
+                        </tr>
+                        {{ /vatSummary }}
+                        <tr>
+                            <td>Razem</td>
+                            {{ #totalSummary }}
+                            <td>{{ #money }}{{ netto }}{{ /money }}</td>
+                            <td>{{ #money }}{{ vat }}{{ /money }}</td>
+                            <td>{{ #money }}{{ brutto }}{{ /money }}</td>
+                            {{ /totalSummary }}
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row space-bottom">
+                <div class="col-md-6 col-md-offset-6">
+                    {{ #totalSummary }}
+                    <p class="lead lead-no-space">Razem do zapłaty: {{ #money }}{{ brutto }}{{ /money }}</p>
+                    <p>Kwota słownie: {{ #inWords }}{{ brutto }}{{ /inWords }}</p>
+                    {{ /totalSummary }}
+                </div>
+            </div>
+
+            <div class="row row-no-padding invoice-footer">
+                <div class="col-sm-6">
+                    <div class="col-md-8 col-md-offset-2 text-center invoice-person">
+                        <div class="invoice-person-name">{{ invoice.personIssuing }}</div>
+                        <div class="invoice-person-label">Osoba upoważniona do wystawienia</div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="col-md-8 col-md-offset-2 text-center invoice-person">
+                        {{ #personReceiving }}<div class="invoice-person-name">{{ invoice.personReceiving }}</div>{{ /personReceiving }}
+                        {{ ^personReceiving }}<div class="invoice-person-name">&nbsp;</div>{{ /personReceiving }}
+                        <div class="invoice-person-label">Osoba upoważniona do odbioru</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
