@@ -22,7 +22,7 @@ const generate = (invoice, i18n) => {
       }
     };
 
-    fs.readFile(path.join(__dirname, '..', '..', 'templates', 'pdf.html'), (err, template) => {
+    fs.readFile(path.join(__dirname, '..', '..', '..', 'templates', 'pdf.html'), (err, template) => {
       const rendered = mustache.render(template.toString(), data);
 
       const childArgs = [
