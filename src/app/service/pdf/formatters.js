@@ -12,7 +12,9 @@ const inWords = () => (text, render) => {
   const value = render(text);
   const trunc =  Math.trunc(value);
 
-  return `${inWordsPl(trunc)} PLN ${String(value).replace(/^[\d]+\./, '')}/100`;
+  const subCurrency = String(Number(value).toFixed(2)).replace(/^[\d]+\./, '');
+
+  return `${inWordsPl(trunc)} PLN${subCurrency !== '00' ? ` ${subCurrency}/100`: ''}`;
 };
 
 module.exports = {

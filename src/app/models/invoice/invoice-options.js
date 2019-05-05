@@ -9,6 +9,11 @@ const invoiceOptions = () => ([
     choices: ['Transfer', 'Cash'],
   },
   {
+    type: 'input',
+    name: 'bankAccount',
+    message: `${emoji('🏦')} Bank account:`,
+  },
+  {
     type: 'list',
     name: 'paymentPeriod',
     message: `${emoji('⌛')} Payment period:`,

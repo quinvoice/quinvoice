@@ -213,6 +213,7 @@
                     <p class="lead lead-no-space">Razem do zapłaty: {{ #money }}{{ brutto }}{{ /money }}</p>
                     <p>Kwota słownie: {{ #inWords }}{{ brutto }}{{ /inWords }}</p>
                     {{ /totalSummary }}
+                    {{ #invoice.bankAccount }}<p>Nr konta: {{ invoice.bankAccount }}</p>{{ /invoice.bankAccount }}
                 </div>
             </div>
 
