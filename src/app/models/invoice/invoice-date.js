@@ -1,6 +1,6 @@
-const moment = require('moment');
 const { emoji } = require('../../service/emoji/emoji');
 const { required } = require('../../service/validation/validation');
+const { getNextNumber } = require('../../service/numeration/numeration');
 
 const invoiceDate = () => ([
   {
@@ -14,7 +14,7 @@ const invoiceDate = () => ([
     type: 'input',
     name: 'number',
     message: `${emoji('🔢')} Number:`,
-    default: (choices) => moment(choices.date).format('1/M/YYYY'),
+    default: (choices) => getNextNumber(choices.date),
   },
 ]);
 

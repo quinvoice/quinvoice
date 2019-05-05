@@ -1,6 +1,6 @@
 {
   "name": "quinvoice",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Quinvoice - the Queen of invoices",
   "repository": "https://github.com/Qcumbeer/quinvoice",
   "main": "src/index.js",

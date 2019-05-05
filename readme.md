@@ -1,5 +1,9 @@
 # :crown: Quinvoice - the Queen of invoices :rocket:
 
+[![NPM Version](https://img.shields.io/npm/v/quinvoice.svg)](https://www.npmjs.com/package/quinvoice)
+[![LICENSE](https://img.shields.io/github/license/qcumbeer/quinvoice.svg)](https://github.com/Qcumbeer/quinvoice)
+[![Dependencies](https://img.shields.io/david/qcumbeer/quinvoice.svg)](https://www.npmjs.com/package/quinvoice)
+
 > Quinvoice is an interactive CLI tool for generating **simple** PDF invoices. It uses clean bootstrap template, and has possibility to save common used companies and invoice templates.
 
 ## How to install?

@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const storage = require('../../service/storage/file.storage');
 const { generate } = require('../../service/pdf/generator');
+const { saveNumber } = require('../../service/numeration/numeration');
 const models = require('../../models');
 
 inquirer.registerPrompt('datetime', require('inquirer-datepicker-prompt'));
@@ -35,14 +36,18 @@ const invoiceCreateAction = (params, i18n) => async () => {
 
   generate(invoice, i18n);
 
+  saveNumber(invoice.number, invoice.date);
+  
   return Promise.resolve();
 };
 
 const createFromTemplate = async (template, i18n) => {
   const invoice = await inquirer.prompt(models.invoiceDate());
-
+  
   generate({...template, ...invoice}, i18n);
 
+  saveNumber(invoice.number, invoice.date);
+  
   return Promise.resolve();
 };
 
