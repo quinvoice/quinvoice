@@ -1,8 +1,9 @@
 {
   "name": "quinvoice",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Quinvoice - the Queen of invoices",
-  "repository": "https://github.com/Qcumbeer/quinvoice",
+  "repository": "https://github.com/quinvoice/quinvoice",
+  "homepage": "https://quinvoice.github.io",
   "main": "src/index.js",
   "bin": {
     "quinvoice": "./bin/quinvoice.js"
@@ -11,7 +12,12 @@
     "lint": "eslint src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "invoice",
+    "invoices",
+    "pdf",
+    "generator"
+  ],
   "author": "Szymon Piecuch <szymek.piecuch@gmail.com>",
   "license": "ISC",
   "dependencies": {
