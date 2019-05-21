@@ -9,8 +9,10 @@
     "quinvoice": "./bin/quinvoice.js"
   },
   "scripts": {
-    "lint": "eslint src",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "tslint --project .",
+    "build": "rm -rf dist && tsc && cp -R src/{templates,locales} dist",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "npm test && npm run lint && npm run build"
   },
   "keywords": [
     "invoice",
@@ -22,17 +24,22 @@
   "license": "ISC",
   "dependencies": {
     "currency-formatter": "^1.5.3",
-    "getopts": "^2.2.4",
     "i18n": "^0.8.3",
     "in-words": "^0.2.2",
     "inquirer": "^6.3.1",
     "inquirer-datepicker-prompt": "^0.4.2",
-    "moment": "^2.24.0",
     "mustache": "^3.0.1",
     "wkhtmltopdf-installer": "^0.3.2",
     "word-table": "^1.0.3"
   },
   "devDependencies": {
-    "eslint": "^5.16.0"
+    "@types/currency-formatter": "^1.3.0",
+    "@types/i18n": "^0.8.5",
+    "@types/inquirer": "^6.0.2",
+    "@types/mustache": "^0.8.32",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-sonarts": "^1.9.0",
+    "typescript": "^3.4.5"
   }
 }

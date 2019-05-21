@@ -1,2 +1,5 @@
 docs/
-.eslintrc.json
+typings/
+src/
+tslint.json
+tsconfig.json

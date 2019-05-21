@@ -1,10 +1,4 @@
 #!/usr/bin/env node
-const getopts = require('getopts');
-const { execute } = require('../src/index');
+const { execute } = require("../dist/index");
 
-const opts = getopts(process.argv.slice(2));
-
-const {_, ...params} = opts;
-const action = _.join('.');
-
-execute(action, params);
+execute();

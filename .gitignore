@@ -3,4 +3,5 @@
 .classpath
 .vscode
 
+dist/
 node_modules/
