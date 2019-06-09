@@ -41,7 +41,7 @@ export const companyQuestions = (companies: Company[]) => [
   {
     type: "input",
     name: "nip",
-    message: `${emoji("💼")} NIP:`,
+    message: `${emoji("💼")} NIP(optional):`,
     default: matchCompany("nip", companies),
     validate: nip
   }
